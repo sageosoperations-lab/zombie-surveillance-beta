@@ -1,0 +1,16 @@
+{
+	admin off
+	auto_https off
+}
+:{$PORT} {
+	@room {
+		header Connection *Upgrade*
+		header Upgrade websocket
+	}
+	reverse_proxy @room 127.0.0.1:8766
+	root * /srv
+	header X-Robots-Tag "noindex, nofollow"
+	file_server {
+		precompressed gzip
+	}
+}
